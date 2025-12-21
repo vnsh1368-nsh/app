@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پورتال اپلیکیشن‌ها و سایت‌های وحید شریف</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 40px;
+            background: #ffd700;
+            border-radius: 2px;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .app-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .app-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .app-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .app-name {
+            font-size: 1.3rem;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .app-description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            min-height: 45px;
+        }
+
+        .app-type {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-open {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-open:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .app-card {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 1.2rem;
+            }
+
+            .section-title::before {
+                width: 3px;
+                height: 30px;
+            }
+
+            .app-icon {
+                font-size: 2.5rem;
+            }
+
+            .app-buttons {
+                flex-direction: column;
+            }
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .apple-icon {
+            width: 3rem;
+            height: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 پورتال اپلیکیشن‌ها و سایت‌های وحید شریف</h1>
+    </div>
+
+    <div class="container">
+        <!-- سایت‌های فروش -->
+        <div class="section">
+            <div class="section-title">🛍️ سایت‌های فروش</div>
+            <div class="apps-grid" id="shoppingGrid"></div>
+        </div>
+
+        <!-- اپلیکیشن‌های کاربری -->
+        <div class="section">
+            <div class="section-title">📱 اپلیکیشن‌های کاربری</div>
+            <div class="apps-grid" id="appGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        const defaultItems = {
+            shopping: [
+                {
+                    name: 'فروشگاه عطر اصل',
+                    icon: '💎',
+                    description: 'فروش عطرهای اصل و اورجینال با بسته‌بندی حرفه‌ای',
+                    url: 'https://vnsh1368-nsh.github.io/buy_atr'
+                },
+                {
+                    name: 'فروش ظروف یکبار مصرف',
+                    icon: '🍽️',
+                    description: 'سفارش آنلاین ظروف یکبار مصرف و ارسال سریع',
+                    url: 'https://vnsh1368-nsh.github.io/zorof'
+                }
+            ],
+            app: [
+                {
+                    name: 'ثبت شیفت های شب',
+                    icon: '🌙',
+                    description: 'مدیریت و ثبت شیفت‌های شب با آمار دقیق',
+                    url: 'https://vnsh1368-nsh.github.io/shift'
+                },
+                {
+                    name: 'محاسبه کالری روزانه',
+                    icon: '🔥',
+                    description: 'محاسبه کالری غذاهای مختلف و نظارت بر رژیم',
+                    url: 'https://vnsh1368-nsh.github.io/calery'
+                },
+                {
+                    name: 'مدیریت هزینه‌های ماهانه',
+                    icon: '💰',
+                    description: 'ثبت و مدیریت هزینه‌های زوجین و تفریق هزینه‌ها',
+                    url: 'https://vnsh1368-nsh.github.io/hazine'
+                },
+                {
+                    name: 'مدیریت هزینه های زوجین (نسخه ۲)',
+                    icon: '👫',
+                    description: 'نسخه اصلاح‌شده مدیریت هزینه‌های زوجین',
+                    url: 'https://vnsh1368-nsh.github.io/MH2'
+                },
+                {
+                    name: 'چی بپزم؟',
+                    icon: '🍲',
+                    description: 'انتخاب تصادفی غذا و مدیریت لیست غذاها',
+                    url: 'https://vnsh1368-nsh.github.io/ghaza'
+                },
+                {
+                    name: 'محاسبه دونگ دوستان',
+                    icon: '🧾',
+                    description: 'محاسبه هزینه مشترک و تقسیم دقیق بین دوستان',
+                    url: 'https://vnsh1368-nsh.github.io/Dong'
+                },
+                {
+                    name: 'بازی مافیا',
+                    icon: '🎭',
+                    description: 'بازی مافیا برای تفریح و سرگرمی با دوستان',
+                    url: 'https://vnsh1368-nsh.github.io/Mafia'
+                },
+                {
+                    name: 'محاسبه سود بانکی',
+                    icon: '🏦',
+                    description: 'محاسبه سود بانکی و بهره بر اساس نرخ سالانه',
+                    url: 'https://vnsh1368-nsh.github.io/sood/'
+                },
+                {
+                    name: 'محاسبه BMI و دریافت رژیم غذایی',
+                    icon: '<svg class="apple-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#FF6B35;stop-opacity:1" /><stop offset="100%" style="stop-color:#D32F2F;stop-opacity:1" /></linearGradient></defs><circle cx="50" cy="60" r="40" fill="url(#appleGrad)"/><ellipse cx="50" cy="25" rx="8" ry="12" fill="#8B4513"/><path d="M 50 12 Q 55 8 58 15" fill="#2D5016" stroke="#2D5016" stroke-width="1.5"/><circle cx="35" cy="50" r="6" fill="rgba(255,255,255,0.2)"/></svg>',
+                    description: 'محاسبه شاخص توده بدن و دریافت توصیه‌های رژیم غذایی شخصی‌سازی‌شده',
+                    url: 'https://vnsh1368-nsh.github.io/rejim/'
+                },
+                {
+                    name: 'برنامه قرعه‌کشی',
+                    icon: '🎰',
+                    description: 'برگزاری قرعه‌کشی و انتخاب برندگان به صورت تصادفی',
+                    url: 'https://vnsh1368-nsh.github.io/ghorekeshi/'
+                }
+            ]
+        };
+
+        // رندر کردن شبکه اپلیکیشن‌ها
+        function renderGrid(type) {
+            const items = defaultItems;
+            const grid = document.getElementById(type === 'shopping' ? 'shoppingGrid' : 'appGrid');
+            
+            if (items[type].length === 0) {
+                grid.innerHTML = '<div class="empty-state">هنوز آیتمی اضافه نشده است</div>';
+                return;
+            }
+
+            grid.innerHTML = items[type].map((item, index) => {
+                const isSVG = item.icon.includes('<svg');
+                const iconHTML = isSVG ? item.icon : `<span>${item.icon}</span>`;
+                
+                return `
+                <div class="app-card">
+                    <div class="app-icon">${iconHTML}</div>
+                    <div class="app-type">${type === 'shopping' ? 'سایت فروش' : 'اپلیکیشن'}</div>
+                    <div class="app-name">${item.name}</div>
+                    <div class="app-description">${item.description}</div>
+                    <div class="app-buttons">
+                        <button class="btn-open" onclick="openApp('${item.url}')">
+                            باز کردن ↗️
+                        </button>
+                    </div>
+                </div>
+            `;
+            }).join('');
+        }
+
+        // باز کردن اپلیکیشن یا سایت
+        function openApp(url) {
+            window.open(url, '_blank');
+        }
+
+        // رندر اولیه
+        renderGrid('shopping');
+        renderGrid('app');
+    </script>
+</body>
+</html>
