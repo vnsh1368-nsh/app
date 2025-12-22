@@ -270,6 +270,12 @@
             <div class="section-title">📱 اپلیکیشن‌های کاربری</div>
             <div class="apps-grid" id="appGrid"></div>
         </div>
+
+        <!-- کانال یوتیوب -->
+        <div class="section">
+            <div class="section-title">📺 کانال یوتیوب</div>
+            <div class="apps-grid" id="youtubeGrid"></div>
+        </div>
     </div>
 
     <script>
@@ -349,18 +355,37 @@
                     description: 'برگزاری قرعه‌کشی و انتخاب برندگان به صورت تصادفی',
                     url: 'https://vnsh1368-nsh.github.io/ghorekeshi/'
                 }
+            ],
+            youtube: [
+                {
+                    name: 'AI Persian Sound',
+                    icon: '🎵',
+                    description: 'ساخت موزیک پاپ فارسی',
+                    url: 'https://www.youtube.com/@AIPersianSound'
+                }
             ]
         };
 
         // رندر کردن شبکه اپلیکیشن‌ها
         function renderGrid(type) {
             const items = defaultItems;
-            const grid = document.getElementById(type === 'shopping' ? 'shoppingGrid' : 'appGrid');
+            const gridIds = {
+                'shopping': 'shoppingGrid',
+                'app': 'appGrid',
+                'youtube': 'youtubeGrid'
+            };
+            const grid = document.getElementById(gridIds[type]);
             
             if (items[type].length === 0) {
                 grid.innerHTML = '<div class="empty-state">هنوز آیتمی اضافه نشده است</div>';
                 return;
             }
+
+            const typeLabels = {
+                'shopping': 'سایت فروش',
+                'app': 'اپلیکیشن',
+                'youtube': 'کانال یوتیوب'
+            };
 
             grid.innerHTML = items[type].map((item, index) => {
                 const isSVG = item.icon.includes('<svg');
@@ -369,7 +394,7 @@
                 return `
                 <div class="app-card">
                     <div class="app-icon">${iconHTML}</div>
-                    <div class="app-type">${type === 'shopping' ? 'سایت فروش' : 'اپلیکیشن'}</div>
+                    <div class="app-type">${typeLabels[type]}</div>
                     <div class="app-name">${item.name}</div>
                     <div class="app-description">${item.description}</div>
                     <div class="app-buttons">
@@ -390,6 +415,7 @@
         // رندر اولیه
         renderGrid('shopping');
         renderGrid('app');
+        renderGrid('youtube');
     </script>
 </body>
 </html>
